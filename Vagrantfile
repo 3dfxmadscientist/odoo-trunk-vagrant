@@ -14,7 +14,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       odoo.vm.provision :shell, :path => "provision.sh"
       odoo.vm.network :forwarded_port, host: 8069, guest: 8069 
-      odoo.vm.synced_folder "./addons", "/home/vagrant/addons"
+      odoo.vm.network :forwarded_port, host: 8070, guest: 80
+      odoo.vm.synced_folder "./addons/website", "/usr/lib/pymodules/python2.7/openerp/addons/website"
+      odoo.vm.synced_folder "./addons/website_sale", "/usr/lib/pymodules/python2.7/openerp/addons/website_sale"
+#      odoo.vm.synced_folder "/Users/xyklex/git/repositories/odoo", "/home/vagrant/odoo"
 
       odoo.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", "1024"]
